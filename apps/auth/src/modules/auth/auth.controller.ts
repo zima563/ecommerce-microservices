@@ -5,8 +5,11 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get()
-  getHello(): string {
-    return this.authService.getHello();
+  @Get('health')
+  health() {
+    return {
+      status: 'ok',
+      service: 'auth-service',
+    };
   }
 }
