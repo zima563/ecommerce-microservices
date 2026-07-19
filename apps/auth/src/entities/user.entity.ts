@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserRole } from '../emuns/user-role.enum';
+import { UserRole } from '../common/enums/user-role.enum';
 
 @Entity('users')
 export class UserEntity {
@@ -31,6 +31,16 @@ export class UserEntity {
     default: UserRole.USER,
   })
   role!: UserRole;
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  refreshToken!: string | null;
+  @Column({
+    type: 'datetime',
+    nullable: true,
+  })
+  refreshTokenExpiresAt!: Date | null;
 
   @CreateDateColumn()
   createdAt!: Date;
