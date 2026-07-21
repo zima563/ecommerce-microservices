@@ -9,7 +9,6 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { TokenService } from '../../token/token.service';
-import { TokenModule } from '../../token/token.module';
 
 @Module({
   imports: [
@@ -27,16 +26,15 @@ import { TokenModule } from '../../token/token.module';
       inject: [ConfigService],
 
       useFactory: (config: ConfigService) => ({
-        secret: config.get<string>('JWT_SECRET'),
+        secret: config.getOrThrow<string>('JWT_SECRET'),
 
         signOptions: {
           expiresIn: '15m',
         },
       }),
     }),
-    TokenModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, TokenService],
 })
 export class AuthModule {}

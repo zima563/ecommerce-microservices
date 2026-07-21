@@ -91,10 +91,14 @@ export class AuthService {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
+    console.log('Stored Hash:', user.refreshToken);
+
     const isRefreshTokenValid = await this.tokenService.compareRefreshToken(
       dto.refreshToken,
-      user.refreshToken,
+      user.refreshToken!,
     );
+
+    console.log('Compare Result:', isRefreshTokenValid);
 
     if (!isRefreshTokenValid) {
       throw new UnauthorizedException('Invalid refresh token');
@@ -105,6 +109,10 @@ export class AuthService {
     }
 
     const tokens = await this.tokenService.generateTokens(user);
+
+    console.log('Old Token:', dto.refreshToken);
+    console.log('New Token:', tokens.refreshToken);
+    console.log('Equal:', dto.refreshToken === tokens.refreshToken);
 
     await this.updateRefreshToken(user.id, tokens.refreshToken);
 
@@ -118,9 +126,11 @@ export class AuthService {
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 7);
 
-    await this.userRepository.update(userId, {
+    const result = await this.userRepository.update(userId, {
       refreshToken: hashedRefreshToken,
       refreshTokenExpiresAt: expiresAt,
     });
+
+    console.log(result);
   }
 }
