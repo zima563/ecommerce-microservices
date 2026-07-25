@@ -33,6 +33,12 @@
       ],
       "@app/database/*": [
         "libs/database/src/*"
+      ],
+      "y/rabbitmq": [
+        "libs/rabbitmq/src"
+      ],
+      "y/rabbitmq/*": [
+        "libs/rabbitmq/src/*"
       ]
     }
   }
