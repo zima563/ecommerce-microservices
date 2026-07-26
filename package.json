@@ -94,7 +94,7 @@
     "moduleNameMapper": {
       "^@app/config(|/.*)$": "<rootDir>/libs/config/src/$1",
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
-      "^y/rabbitmq(|/.*)$": "<rootDir>/libs/rabbitmq/src/$1"
+      "^@app/rabbitmq(|/.*)$": "<rootDir>/libs/rabbitmq/src/$1"
     }
   }
 }

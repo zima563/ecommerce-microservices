@@ -4,7 +4,7 @@ import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 
 import { RabbitmqService } from './rabbitmq.service';
 import { RabbitMQModuleOptions } from './interfaces/rabbitmq-module-options.interface';
-import { RABBITMQ_CLIENT } from './constants/rabbitmq.constants';
+import { RABBITMQ_CLIENT, RABBITMQ_OPTIONS } from './constants/rabbitmq.constants';
 
 @Module({})
 export class RabbitmqModule {
@@ -14,12 +14,12 @@ export class RabbitmqModule {
       imports: [ConfigModule],
       providers: [
         {
-          provide: 'RABBITMQ_OPTIONS',
+          provide: RABBITMQ_OPTIONS,
           useValue: options,
         },
         {
           provide: RABBITMQ_CLIENT,
-          inject: [ConfigService, 'RABBITMQ_OPTIONS'],
+          inject: [ConfigService, RABBITMQ_OPTIONS],
           useFactory: (
             configService: ConfigService,
             rabbitmqOptions: RabbitMQModuleOptions,
