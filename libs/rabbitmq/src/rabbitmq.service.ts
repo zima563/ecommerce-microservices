@@ -17,6 +17,4 @@ export class RabbitmqService {
   async send<TResult, TData>(pattern: string, data: TData): Promise<TResult> {
     return firstValueFrom(this.client.send<TResult, TData>(pattern, data));
   }
-
-  cdkfbkdjv;
 }
