@@ -1,61 +1,89 @@
 # 🛒 E-Commerce Microservices
 
-A production-ready E-Commerce backend built with **NestJS Microservices** following enterprise architecture and best practices.
-
-## 🎯 Project Goals
-
-- Learn and implement Microservices Architecture from scratch.
-- Follow production-ready development practices.
-- Use Git Flow and Conventional Commits.
-- Build a scalable backend using NestJS.
+A production-ready E-Commerce backend built with **NestJS Microservices** following enterprise architecture and clean architecture principles.
 
 ---
 
-## 🛠 Tech Stack
+# 🎯 Project Goals
+
+- Build a scalable Microservices Architecture from scratch.
+- Learn enterprise backend development.
+- Follow Clean Architecture principles.
+- Apply Git Flow and Conventional Commits.
+- Use asynchronous communication with RabbitMQ.
+- Build production-ready services.
+
+---
+
+# 🛠 Tech Stack
 
 - NestJS
 - TypeScript
+- TypeORM
 - MySQL
-- Prisma ORM
 - RabbitMQ
-- Redis
 - Docker & Docker Compose
 - JWT Authentication
-- GitHub Actions
-- Swagger
+- Passport
+- Joi Validation
+- GitHub Actions (Coming Soon)
+- Swagger (Coming Soon)
 
 ---
 
-## 📂 Architecture
+# 📂 Project Structure
 
 ```text
-                API Gateway
-                     │
-      ┌──────────────┼──────────────┐
-      │              │              │
-    Auth          User         Product
-      │              │              │
-      └────── RabbitMQ Events ──────┘
-                     │
-        Order ─ Payment ─ Notification
+apps/
+├── auth/
+└── ecommerce-microservices/
+
+libs/
+├── common/
+├── config/
+├── database/
+└── rabbitmq/
 ```
 
 ---
 
-## 🚀 Development Workflow
+# 🏗 Architecture
+
+```text
+                    Client
+                       │
+                       ▼
+                 API Gateway
+                       │
+            Request / Response
+                 (RabbitMQ)
+                       │
+        ┌──────────────┼──────────────┐
+        ▼              ▼              ▼
+   Auth Service   User Service   Product Service
+        │              │              │
+      MySQL          MySQL         MySQL
+```
+
+Each Microservice owns its own database and communicates with other services through RabbitMQ.
+
+---
+
+# 🚀 Development Workflow
 
 We follow:
 
 - Git Flow
 - Feature Branches
 - Conventional Commits
-- Code Review before every merge
+- Code Reviews
+- Small Incremental Commits
 
 ---
 
-# Roadmap
+# 📅 Roadmap
 
-## Sprint 1 — Project Foundation
+## ✅ Sprint 1 — Project Foundation
 
 - [x] Initialize Git Repository
 - [x] Configure GitHub Repository
@@ -66,73 +94,125 @@ We follow:
 
 ---
 
-## Sprint 2 — Auth Foundation
+## ✅ Sprint 2 — Auth Foundation
 
-- [x] Configure Config Module
+- [x] Config Module
 - [x] Environment Variables
+- [x] Environment Validation
+- [x] Global Validation Pipe
 - [x] Health Check Endpoint
-- [ ] Environment Validation
-- [ ] Global Exception Filter
-- [ ] Global Validation Pipe
-- [ ] Logger
 
 ---
 
-## Sprint 3 — Database
+## ✅ Sprint 3 — Database
 
-- [ ] Prisma
-- [ ] MySQL
-- [ ] Initial Migration
-- [ ] User Model
-
----
-
-## Sprint 4 — Authentication
-
-- [ ] Register
-- [ ] Login
-- [ ] Password Hashing
-- [ ] JWT
-- [ ] Refresh Token
+- [x] Configure TypeORM
+- [x] Shared Database Library
+- [x] MySQL Connection
+- [x] User Entity
+- [ ] Database Migrations
 
 ---
 
-## Sprint 5 — Messaging
+## ✅ Sprint 4 — Authentication
 
-- [ ] RabbitMQ
-- [ ] UserRegistered Event
-- [ ] Event Consumers
+- [x] Register
+- [x] Login
+- [x] Password Hashing
+- [x] JWT Authentication
+- [x] Refresh Token Rotation
 
 ---
 
-## Git Strategy
+## ✅ Sprint 5 — RabbitMQ Foundation
+
+- [x] Shared RabbitMQ Library
+- [x] Dynamic RabbitMQ Module
+- [x] Multiple Client Support
+- [ ] Message Consumers
+- [ ] Message Patterns
+
+---
+
+## 🚧 Sprint 6 — API Gateway
+
+- [x] Gateway Application
+- [x] Gateway Auth Module
+- [x] Gateway Foundation
+- [ ] Gateway → Auth Communication
+- [ ] Register Endpoint
+- [ ] Login Endpoint
+
+---
+
+# 🌳 Git Strategy
 
 ```text
 main
 │
 develop
 │
-feature/auth-foundation
-feature/database
-feature/register
-feature/login
-feature/rabbitmq
+├── feature/auth-foundation
+├── feature/database
+├── feature/rabbitmq
+├── feature/api-gateway
+├── feature/register
+└── feature/login
 ```
 
 ---
 
-## Commit Convention
+# 📝 Commit Convention
 
 ```bash
-feat(auth): add health check endpoint
+feat(auth): implement refresh token rotation
+feat(rabbitmq): support multiple RabbitMQ clients
+feat(gateway): initialize API Gateway
 fix(auth): validate duplicate email
-refactor(auth): extract auth module
+refactor(database): extract shared module
 docs: update README
 chore: configure eslint
 ```
 
 ---
 
-## Status
+# ✅ Current Features
 
-🟢 Project in Active Development
+- NestJS Monorepo
+- API Gateway
+- Authentication Service
+- Shared Config Library
+- Shared Database Library
+- Shared RabbitMQ Library
+- JWT Authentication
+- Refresh Token Rotation
+- Docker Development Environment
+
+---
+
+# 🎯 Current Progress
+
+## Completed
+
+- Monorepo Setup
+- Authentication Service
+- Shared Libraries
+- RabbitMQ Infrastructure
+- API Gateway Foundation
+
+## Currently Working On
+
+- API Gateway ↔ Auth Service communication using RabbitMQ
+
+## Next Milestone
+
+- Hybrid Auth Service
+- RabbitMQ Message Handlers
+- Gateway Register Flow
+- Gateway Login Flow
+
+---
+
+# 📌 Project Status
+
+🟢 **Project is under active development following enterprise architecture and microservices best practices.**
