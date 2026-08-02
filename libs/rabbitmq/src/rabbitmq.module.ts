@@ -1,10 +1,17 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ClientProxyFactory, Transport } from '@nestjs/microservices';
+import {
+  ClientProxy,
+  ClientProxyFactory,
+  Transport,
+} from '@nestjs/microservices';
 
 import { RabbitmqService } from './rabbitmq.service';
 import { RabbitMQModuleOptions } from './interfaces/rabbitmq-module-options.interface';
-import { RABBITMQ_CLIENT, RABBITMQ_OPTIONS } from './constants/rabbitmq.constants';
+import {
+  RABBITMQ_CLIENT,
+  RABBITMQ_OPTIONS,
+} from './constants/rabbitmq.constants';
 
 @Module({})
 export class RabbitmqModule {
@@ -23,15 +30,29 @@ export class RabbitmqModule {
           useFactory: (
             configService: ConfigService,
             rabbitmqOptions: RabbitMQModuleOptions,
-          ) =>
-            ClientProxyFactory.create({
-              transport: Transport.RMQ,
-              options: {
-                urls: [configService.getOrThrow<string>('RABBITMQ_URL')],
-                queue: rabbitmqOptions.queue,
-                queueOptions: { durable: true },
-              },
-            }),
+          ) => {
+            const clients = new Map<string, ClientProxy>();
+            const rabbitmqUrl =
+              configService.getOrThrow<string>('RABBITMQ_URL');
+
+            for (const client of rabbitmqOptions.clients) {
+              clients.set(
+                client.name,
+                ClientProxyFactory.create({
+                  transport: Transport.RMQ,
+                  options: {
+                    urls: [rabbitmqUrl],
+                    queue: client.queue,
+                    queueOptions: {
+                      durable: true,
+                    },
+                  },
+                }),
+              );
+            }
+
+            return clients;
+          },
         },
         RabbitmqService,
       ],

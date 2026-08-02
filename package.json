@@ -26,6 +26,7 @@
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
     "@nestjs/jwt": "^11.0.2",
+    "@nestjs/mapped-types": "*",
     "@nestjs/microservices": "^11.1.28",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
@@ -92,9 +93,11 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
+      "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1",
       "^@app/config(|/.*)$": "<rootDir>/libs/config/src/$1",
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
-      "^@app/rabbitmq(|/.*)$": "<rootDir>/libs/rabbitmq/src/$1"
+      "^@app/rabbitmq(|/.*)$": "<rootDir>/libs/rabbitmq/src/$1",
+      "^غ/common(|/.*)$": "<rootDir>/libs/common/src/$1"
     }
   }
 }
